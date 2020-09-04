@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
+import {PrivateRoute} from "./hoc/PrivateRoute";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import LogoutPage from "./pages/LogoutPage";
+import StagiairePage from "./pages/StagiairePage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  render () {
+    return (
+        <Router>
+          <PrivateRoute exact path="/" component={HomePage}/>
+          <PrivateRoute path="/stagiaires/:id" component={StagiairePage}/>
+          <Route path="/login" component={LoginPage}/>
+          <Route path="/logout" component={LogoutPage}/>
+          <Redirect from="*" to="/" />
+        </Router>
+    );
+  }
+
 }
+
 
 export default App;
